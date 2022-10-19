@@ -19,26 +19,46 @@ const Layout = () => {
       id: new Date().getMilliseconds(),
       title: e.target.taskName.value,
       date: e.target.selectt.value,
-      complate: false,
+      complated: false,
     };
-    setData([...data, newTodo])
+    setData([...data, newTodo]);
+  };
+
+  // Delete Func
+  const handleRemove = (id) => {
+    setData(data.filter((todo) => todo.id !== id));
+  };
+
+  // Complated Func
+  const handleComplated = (id) => {
+    const updatedData = data.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, complated: !todo.complated };
+      }
+      return todo;
+    });
+    setData(updatedData);
   };
   // Func Section is Done
   return (
     <div className="mt-[2.5rem] w-[40rem] bg-pink-500 pb-10">
       <Header active={isActive} setActive={setIsActive} />
       {isActive && (
-        <div className="w-[30rem] mx-auto ">
+        <div className="w-[30rem] mx-auto">
           <AddTask handleSubmit={handleSubmit} />
         </div>
       )}
       {data.length !== 0 ? (
-        <div>
-            {data.map((item, idx) => (
-                <div key={idx}>
-                    <Task data={item} />
-                </div>
-            ))}
+        <div className="max-h-[25rem] overflow-y-auto">
+          {data.map((item, idx) => (
+            <div key={idx}>
+              <Task
+                data={item}
+                handleRemove={handleRemove}
+                handleComplated={handleComplated}
+              />
+            </div>
+          ))}
         </div>
       ) : (
         <p className="text-center text-xl font-semibold">No Task Yet</p>
