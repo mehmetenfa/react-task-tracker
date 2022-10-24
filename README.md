@@ -1,1 +1,7 @@
-![Task Tracker](task.gif)
+# Task Tracker 🚀
+
+- 
+
+# Project Gif
+
+ ![Task Tracker](task.gif)
